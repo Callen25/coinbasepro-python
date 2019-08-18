@@ -995,3 +995,20 @@ class AuthenticatedClient(PublicClient):
 
         """
         return self._send_message('get', '/users/self/trailing-volume')
+
+    def get_fees(self):
+        """ Get current fees.
+
+        This request will return your current maker & taker fee rates, as well as your 30-day trailing volume.
+
+        Returns:
+            dict: Current fees. Example::
+            {
+                "maker_fee_rate": "0.0000",
+                "taker_fee_rate: "0.0030",
+                "usd_colume": "20591.77"
+            }
+
+        """
+        return self._send_message('get', '/fees')
+    
