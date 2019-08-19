@@ -1011,4 +1011,29 @@ class AuthenticatedClient(PublicClient):
 
         """
         return self._send_message('get', '/fees')
-    
+
+    def create_conversion(self, from_id, to_id, amount):
+        """ Create a stablecoin conversion.
+
+        Args:
+            from_id (str): A valid currency ID to convert 'from'.
+            to_id (str): A valid currency ID to convert 'to'.
+            amount (Decimal): Amount of 'from' to convert 'to'.
+
+        Returns:
+            dict: Information about the conversion. Example::
+                {
+                    "id": "8942caee-f9d5-4600-a894-4811268545db",
+                    "amount": "10000.00",
+                    "from_account_id": "7849cc79-8b01-4793-9345-bc6b5f08acce",
+                    "to_account_id": "105c3e58-0898-4106-8283-dc5781cda07b",
+                    "from": "USD",
+                    "to": "USDC"
+                }
+
+        """
+        params = {'from': from_id,
+                  'to': to_id,
+                  'amount': amount}
+        return self._send_message('post', '/conversions',
+                                  data=json.dumps(params))
